@@ -107,7 +107,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         emit Initialized(msg.sender);
     }
 
-    function withdrawFunds(address _token, uint256 _amount) public payable nonReentrant {
+    function withdrawFunds(address _token, uint256 _amount) external payable nonReentrant {
         require(funder == msg.sender, "vPool: invalid recipient");
 
         if(address(_token) != address(0)) {
@@ -118,7 +118,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         emit WithdrawFunds(msg.sender, _token, _amount);
     }
 
-    function provideFunds(address _token, uint256 _amount) public payable nonReentrant {
+    function provideFunds(address _token, uint256 _amount) external payable nonReentrant {
         require(funder == msg.sender, "vPool: invalid recipient");
 
         uint256 amount = _amount;
@@ -133,11 +133,11 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
     }
 
 
-    function getStakeMinimum(uint256 _pid) public view returns(uint256) {
+    function getStakeMinimum(uint256 _pid) external view returns(uint256) {
         return pools[_pid].minAmount;
     }
 
-    function getStakedType() public pure returns (StakeType, StakeType, StakeType, StakeType) {
+    function getStakedType() external pure returns (StakeType, StakeType, StakeType, StakeType) {
         return (StakeType.Day1, StakeType.Day7, StakeType.Day30, StakeType.Day60);
     }
 
@@ -259,7 +259,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         }
     }
 
-    function getPoolInfo(uint256 _pid) public view returns(address, uint256[] memory, uint256[] memory, uint256[] memory, uint256[] memory) {
+    function getPoolInfo(uint256 _pid) external view returns(address, uint256[] memory, uint256[] memory, uint256[] memory, uint256[] memory) {
         return (
             pools[_pid].token,
             pools[_pid].benefits[StakeType.Day1],
@@ -269,19 +269,19 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         );
     }
 
-    function balanceOf(uint256 _pid, address _account) public view returns(uint256) {
+    function balanceOf(uint256 _pid, address _account) external view returns(uint256) {
         return pools[_pid].balances[_account];
     }
 
-    function getBalanceOfStakedType(uint256 _pid, address _account, StakeType _stakeType) public view returns(uint256) {
+    function getBalanceOfStakedType(uint256 _pid, address _account, StakeType _stakeType) external view returns(uint256) {
         return pools[_pid].balanceOfStakedType[_account][_stakeType];
     }
 
-    function totalSupply(uint256 _pid) public view returns(uint256) {
+    function totalSupply(uint256 _pid) external view returns(uint256) {
         return pools[_pid].totalSupply;
     }
 
-    function getUserInfo(uint256 _pid, StakeType _stakeType, address _account) public view returns(uint256, uint256, uint256, uint256, uint256, uint256, uint256) {
+    function getUserInfo(uint256 _pid, StakeType _stakeType, address _account) external view returns(uint256, uint256, uint256, uint256, uint256, uint256, uint256) {
         UserInfo memory userInfo = userInfos[_pid][_stakeType][_account];
         return (
             userInfo.deposit,
@@ -294,7 +294,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         );
     }
 
-    function getRecordInfo(uint256 _recordId) public view returns (StakeType, address, address, uint256, uint256, uint256, uint256, uint256) {
+    function getRecordInfo(uint256 _recordId) external view returns (StakeType, address, address, uint256, uint256, uint256, uint256, uint256) {
         StakeRecord memory record = stakeRecords[_recordId];
         return (
             record.stakeType,
@@ -307,7 +307,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
             record.createdAt);
     }
 
-    function earned(uint256 _pid, StakeType _stakeType, address _account) public view returns(uint256) {
+    function earned(uint256 _pid, StakeType _stakeType, address _account) external view returns(uint256) {
         UserInfo memory userInfo = userInfos[_pid][_stakeType][_account];
         uint256 bonus = calcBonus(_pid, _stakeType, _account);
         return userInfo.reward.add(bonus);
@@ -361,7 +361,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         }
     }
 
-    function deposit(uint256 _pid, StakeType _stakeType, uint256 _amount) public payable nonReentrant {
+    function deposit(uint256 _pid, StakeType _stakeType, uint256 _amount) external payable nonReentrant {
         require(_pid != 0, "vPool: invalid pid");
 
         PoolInfo storage poolInfo = pools[_pid];
@@ -438,7 +438,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         }
     }
 
-    function reStake(uint256 _pid, StakeType _stakeType) public nonReentrant {
+    function reStake(uint256 _pid, StakeType _stakeType) external nonReentrant {
         require(_pid != 0, "vPool: invalid pid");
 
         PoolInfo storage poolInfo = pools[_pid];
@@ -475,7 +475,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         stakeRecords[stakeRecordIncr] = record;
     }
 
-    function exit(uint256 _pid, StakeType _stakeType) public nonReentrant {
+    function exit(uint256 _pid, StakeType _stakeType) external nonReentrant {
         require(_pid != 0, "vPool: invalid pid");
 
         PoolInfo storage poolInfo = pools[_pid];
