@@ -104,6 +104,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         usdtDecimals = IEIP20(usdt).decimals();
         
         oneUsdt = 10**usdtDecimals;
+        emit Initialized(msg.sender);
     }
 
     function withdrawFunds(address _token, uint256 _amount) public payable nonReentrant {
@@ -114,6 +115,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         } else {
             safeTransferETH(msg.sender, _amount);
         }
+        emit WithdrawFunds(msg.sender, _token, _amount);
     }
 
     function provideFunds(address _token, uint256 _amount) public payable nonReentrant {
@@ -127,6 +129,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
         if(address(_token) != address(0)) {
             IERC20(_token).safeTransferFrom(msg.sender, address(this), amount);
         }
+        emit ProvideFunds(msg.sender, _token, amount);
     }
 
 
@@ -206,22 +209,24 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
 
     modifier onlyOperator() {
         require(msg.sender == policyOperator, "vPool: invalid policy operator");
-        
         _;
     }
 
     function updateOperator(address _operator) external onlyOwner {
         require(_operator != address(0), "operator zero");
+        emit OperatorUpdated(policyOperator, _operator);
         policyOperator = _operator;
     }
 
     function updateOracle(address _newOracle) external onlyOwner {
         require(_newOracle != address(0), "new oracle zero");
+        emit OracleUpdated(oracle, _newOracle);
         oracle = _newOracle;
     }
 
     function updateFunder(address _funder) external onlyOwner {
         require(_funder != address(0), "funder zero");
+        emit FunderUpdated(funder, _funder);
         funder = _funder;
     }
 
@@ -518,4 +523,13 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
     }
 
     receive() external payable {}
+
+
+    event Initialized(address indexed user);
+    event WithdrawFunds(address indexed user, address indexed token, uint256 indexed amount);
+    event ProvideFunds(address indexed user, address indexed token, uint256 indexed amount);
+
+    event OperatorUpdated(address indexed old, address indexed now);
+    event OracleUpdated(address indexed old, address indexed now);
+    event FunderUpdated(address indexed old, address indexed now);
 }

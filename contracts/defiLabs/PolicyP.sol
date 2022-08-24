@@ -117,6 +117,7 @@ contract PolicyP is Ownable, ReentrancyGuard {
         IPool(pool).setPool(cake_pid, PolicyType.StakeType.Day7,  cake_day7);
         IPool(pool).setPool(cake_pid, PolicyType.StakeType.Day30, cake_day30);
         IPool(pool).setPool(cake_pid, PolicyType.StakeType.Day60, cake_day60);
+        emit PolicyDone(msg.sender, cake_pid, cake);
 
         //bnb
         IPool(pool).addPool(bnb, bnb_min * 10**usdtDecimals, bnb_maxbenefit, PolicyType.BenefitType.T7);
@@ -125,6 +126,7 @@ contract PolicyP is Ownable, ReentrancyGuard {
         IPool(pool).setPool(bnb_pid, PolicyType.StakeType.Day7,  bnb_day7);
         IPool(pool).setPool(bnb_pid, PolicyType.StakeType.Day30, bnb_day30);
         IPool(pool).setPool(bnb_pid, PolicyType.StakeType.Day60, bnb_day60);
+        emit PolicyDone(msg.sender, bnb_pid, bnb);
 
         //usdt
         IPool(pool).addPool(usdt, usdt_min * 10**usdtDecimals, usdt_maxbenefit, PolicyType.BenefitType.T7);
@@ -133,6 +135,7 @@ contract PolicyP is Ownable, ReentrancyGuard {
         IPool(pool).setPool(usdt_pid, PolicyType.StakeType.Day7,  usdt_day7);
         IPool(pool).setPool(usdt_pid, PolicyType.StakeType.Day30, usdt_day30);
         IPool(pool).setPool(usdt_pid, PolicyType.StakeType.Day60, usdt_day60);
+        emit PolicyDone(msg.sender, usdt_pid, usdt);
 
         //busd
         IPool(pool).addPool(busd, busd_min * 10**usdtDecimals, busd_maxbenefit, PolicyType.BenefitType.T7);
@@ -141,6 +144,7 @@ contract PolicyP is Ownable, ReentrancyGuard {
         IPool(pool).setPool(busd_pid, PolicyType.StakeType.Day7,  busd_day7);
         IPool(pool).setPool(busd_pid, PolicyType.StakeType.Day30, busd_day30);
         IPool(pool).setPool(busd_pid, PolicyType.StakeType.Day60, busd_day60);
+        emit PolicyDone(msg.sender, busd_pid, busd);
 
         //btc
         IPool(pool).addPool(btc, btc_min * 10**usdtDecimals, btc_maxbenefit, PolicyType.BenefitType.T4);
@@ -149,6 +153,7 @@ contract PolicyP is Ownable, ReentrancyGuard {
         IPool(pool).setPool(btc_pid, PolicyType.StakeType.Day7,  btc_day7);
         IPool(pool).setPool(btc_pid, PolicyType.StakeType.Day30, btc_day30);
         IPool(pool).setPool(btc_pid, PolicyType.StakeType.Day60, btc_day60);
+        emit PolicyDone(msg.sender, btc_pid, btc);
 
         //eth
         IPool(pool).addPool(eth, eth_min * 10**usdtDecimals, eth_maxbenefit, PolicyType.BenefitType.T5);
@@ -157,7 +162,10 @@ contract PolicyP is Ownable, ReentrancyGuard {
         IPool(pool).setPool(eth_pid, PolicyType.StakeType.Day7,  eth_day7);
         IPool(pool).setPool(eth_pid, PolicyType.StakeType.Day30, eth_day30);
         IPool(pool).setPool(eth_pid, PolicyType.StakeType.Day60, eth_day60);
+        emit PolicyDone(msg.sender, eth_pid, eth);
 
         isDone = true;
     }
+
+    event PolicyDone(address indexed user, uint256 indexed pid, address indexed token);
 }
