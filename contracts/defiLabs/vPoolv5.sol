@@ -86,7 +86,7 @@ contract vPoolv5 is Ownable, ReentrancyGuard {
 
     uint256 private gSalt = 0;
 
-    address public policyOperator; 
+    address public policyOperator;
 
     constructor(
         address _oracle,

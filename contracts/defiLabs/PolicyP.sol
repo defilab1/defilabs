@@ -39,43 +39,43 @@ contract PolicyP is Ownable, ReentrancyGuard {
 
     uint256 public usdtDecimals;
 
-    uint256 cake_min = 1;
-    uint256 cake_maxbenefit = 0;
+    uint256 constant cake_min = 1;
+    uint256 constant cake_maxbenefit = 0;
     uint256[] cake_day1  = [120,    130,    140,    150,    160,    170,    180];
     uint256[] cake_day7  = [125*7,  135*7,  145*7,  155*7,  165*7,  175*7,  185*7];
     uint256[] cake_day30 = [130*30, 140*30, 150*30, 160*30, 170*30, 180*30, 190*30];
     uint256[] cake_day60 = [135*60, 145*60, 155*60, 165*60, 175*60, 185*60, 195*60];
 
-    uint256 bnb_min = 1;
-    uint256 bnb_maxbenefit = 0;
+    uint256 constant bnb_min = 1;
+    uint256 constant bnb_maxbenefit = 0;
     uint256[] bnb_day1   = [150,    154,    158,    162,    168,    174,    180];
     uint256[] bnb_day7   = [157*7,  161*7,  165*7,  169*7,  175*7,  181*7,  187*7];
     uint256[] bnb_day30  = [195*30, 199*30, 203*30, 207*30, 213*30, 219*30, 225*30];
     uint256[] bnb_day60  = [201*60, 205*60, 209*60, 213*60, 219*60, 225*60, 231*60];
 
-    uint256 usdt_min = 1;
-    uint256 usdt_maxbenefit = 0;
+    uint256 constant usdt_min = 1;
+    uint256 constant usdt_maxbenefit = 0;
     uint256[] usdt_day1  = [185,    190,    195,    200,    210,    220,    230];
     uint256[] usdt_day7  = [191*7,  196*7,  201*7,  206*7,  216*7,  226*7,  236*7];
     uint256[] usdt_day30 = [210*30, 215*30, 220*30, 225*30, 235*30, 245*30, 255*30];
     uint256[] usdt_day60 = [240*60, 245*60, 250*60, 255*60, 265*60, 275*60, 285*60];
 
-    uint256 busd_min = 1;
-    uint256 busd_maxbenefit = 0;
+    uint256 constant busd_min = 1;
+    uint256 constant busd_maxbenefit = 0;
     uint256[] busd_day1  = [160,    164,    168,    172,    178,    184,    190];
     uint256[] busd_day7  = [166*7,  170*7,  174*7,  178*7,  184*7,  190*7,  196*7];
     uint256[] busd_day30 = [210*30, 214*30, 218*30, 222*30, 228*30, 234*30, 240*30];
     uint256[] busd_day60 = [216*60, 220*60, 224*60, 228*60, 234*60, 240*60, 246*60];
 
-    uint256 btc_min = 1;
-    uint256 btc_maxbenefit = 0;
+    uint256 constant btc_min = 1;
+    uint256 constant btc_maxbenefit = 0;
     uint256[] btc_day1   = [0,      0,      0,      80,     85,     90,     95];
     uint256[] btc_day7   = [0*7,    0*7,    0*7,    85*7,   90*7,   95*7,   100*7];
     uint256[] btc_day30  = [0*30,   0*30,   0*30,   90*30,  95*30,  100*30, 105*30];
     uint256[] btc_day60  = [0*60,   0*60,   0*60,   95*60,  100*60, 105*60, 110*60];
 
-    uint256 eth_min = 1;
-    uint256 eth_maxbenefit = 0;
+    uint256 constant eth_min = 1;
+    uint256 constant eth_maxbenefit = 0;
     uint256[] eth_day1   = [0,      0,      100,    105,    110,    120,    130];
     uint256[] eth_day7   = [0*7,    0*7,    105*7,  110*7,  115*7,  125*7,  135*7];
     uint256[] eth_day30  = [0*30,   0*30,   110*30, 115*30, 120*30, 130*30, 140*30];
